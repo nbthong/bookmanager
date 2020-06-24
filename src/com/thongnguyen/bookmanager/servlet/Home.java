@@ -28,10 +28,6 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// MVC
-		// TODO 1. MODEL
-		// TODO 2. VIEW
-		System.out.println("HOME SERVLET CALLED");
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/homepage.jsp");       
 	    dispatcher.forward(request, response);
 	}
