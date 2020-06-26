@@ -12,8 +12,7 @@
 <h1>SEARCH</h1>
 
 <form action="${pageContext.request.contextPath}/search" 
-			method="post" 
-			accept-charset="UTF-8">
+			method="post" >
 			
 	<input type="text" name="textSearch">
 	

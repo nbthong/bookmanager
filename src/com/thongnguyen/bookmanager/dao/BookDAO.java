@@ -11,6 +11,47 @@ import com.thongnguyen.bookmanager.dbconnection.ConnectionFactory;
 
 public class BookDAO {
 	
+	public void insertBook(String name, 
+							String author, 
+							String publisher, 
+							String type,
+							String language, 
+							String description, 
+							int quantity) {
+		Connection connection = null;
+		Statement statement = null;
+		try {	
+			connection = ConnectionFactory.getConnection();
+			String sql = "INSERT INTO books (name,author,publisher,type,language,description,quantity)"
+						+" VALUES ('" + name
+						+ "','" + author
+						+ "','" + publisher
+						+ "','" + type
+						+ "','" + language
+						+ "','" + description
+						+ "'," + quantity
+						+ ");";
+			System.out.println(sql);
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public void deleteBook(int id) {
+		Connection connection = null;
+		Statement statement = null;
+		try {	
+			connection = ConnectionFactory.getConnection();
+			String sql = "DELETE FROM books WHERE id = " + id;
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
 	public ArrayList<Book> searchByName(String textSearch){
 		Connection connection = null;
 		Statement statement = null;

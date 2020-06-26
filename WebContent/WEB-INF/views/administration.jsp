@@ -19,8 +19,9 @@
 			<th>Publisher</th>
 			<th>Type</th>
 			<th>Language</th>
-			<th>Description</th>
+			<!-- <th>Description</th> -->
 			<th>Quantity</th>
+			<th>Action</th>
 		</tr>
 		<c:forEach items="${books}" var="book">
 			<tr>
@@ -30,10 +31,15 @@
 				<td>${book.publisher}</td>
 				<td>${book.type}</td>
 				<td>${book.language}</td>
-				<td>${book.description}</td>
+				<%-- <td>${book.description}</td> --%>
 				<td>${book.quantity}</td>
+				<td>
+					<a href="deleteBook?id=${book.id}">Delete</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<a href="${pageContext.request.contextPath}/insertBook">Add Book</a>
 </body>
 </html>
