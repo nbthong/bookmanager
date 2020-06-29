@@ -10,6 +10,53 @@ import com.thongnguyen.bookmanager.bo.Book;
 import com.thongnguyen.bookmanager.dbconnection.ConnectionFactory;
 
 public class BookDAO {
+	public void updateBook(int id,
+			String name, 
+			String author, 
+			String publisher, 
+			String type,
+			String language, 
+			String description, 
+			int quantity) {
+		Connection connection = null;
+		Statement statement = null;
+		try {	
+			connection = ConnectionFactory.getConnection();
+			String sql = "UPDATE books SET name='"
+					+ name + "', author ='"
+					+ author + "' , publisher ='"
+					+ publisher + "' , type ='"
+					+ type + "' , language ='"
+					+ language + "' , description ='"
+					+ description + "' , quantity ='"
+					+ quantity + "' WHERE id = " + id;
+			System.out.println(sql);
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public Book findById(int id){
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionFactory.getConnection();
+			String sql = "SELECT * FROM books WHERE id = " + id;
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				Book book = convertToBook(resultSet);
+				return book;
+			}
+		} catch (SQLException e) {
+			//Handle errors for JDBC
+			e.printStackTrace();
+		} 
+		return null;
+	}
 	
 	public void insertBook(String name, 
 							String author, 

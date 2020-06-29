@@ -34,6 +34,7 @@
 				<%-- <td>${book.description}</td> --%>
 				<td>${book.quantity}</td>
 				<td>
+					<a href="updateBook?id=${book.id}">Update</a>
 					<a href="deleteBook?id=${book.id}">Delete</a>
 				</td>
 			</tr>

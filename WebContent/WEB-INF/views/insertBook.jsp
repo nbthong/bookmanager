@@ -20,7 +20,6 @@
 	<input type="text" name="description" value="${book.name}" placeholder="Description"> <br>
 	<input type="number" name="quantity" value="${book.name}" placeholder="Quantity"> <br>
 	
-	
 	<input type="submit" value="Add">
 </form>
 </body>
