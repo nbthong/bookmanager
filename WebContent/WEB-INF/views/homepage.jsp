@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
+
+<link rel="stylesheet" type="text/css" href="<c:url value='/resource/css/style.css'/>">
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>

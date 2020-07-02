@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.thongnguyen.bookmanager.dao.UserDAO;
+
 /**
  * Servlet implementation class Contact
  */
@@ -37,8 +39,21 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String username = (String) request.getParameter("username");
+		String password = (String) request.getParameter("password");
+		
+		UserDAO userDAO = new UserDAO();
+		boolean isUsernameExists  = userDAO.isUsernameExists(username);
+		
+		if (isUsernameExists) {
+			request.setAttribute("errorMessage", "Username already exist");
+			RequestDispatcher dispatcher 
+				= this.getServletContext().getRequestDispatcher("/WEB-INF/views/register.jsp");       
+		    dispatcher.forward(request, response);
+		} else {
+			userDAO.insertUser(username, password);
+			response.sendRedirect(request.getContextPath() + "/login");
+		}
 	}
 
 }

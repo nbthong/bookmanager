@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class Authentication
+ * Servlet Filter implementation class Permission
  */
-@WebFilter(filterName = "Authentication",
-  	urlPatterns= {"/home", "/contact", "/administration","/createBook"
-		  ,"/deleteBook","/updateBook","/search","/logout"})
-public class Authentication implements Filter {
+@WebFilter(filterName = "Permission",
+	urlPatterns= {"/administration","/createBook"
+			  ,"/deleteBook","/updateBook"})
+public class Permission implements Filter {
 
     /**
      * Default constructor. 
      */
-    public Authentication() {
+    public Permission() {
         // TODO Auto-generated constructor stub
     }
 
@@ -37,18 +37,16 @@ public class Authentication implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		System.out.println("Authentication filter");
-		
+		System.out.println("Permission filter");
 		HttpServletRequest httpReq = (HttpServletRequest) request;
 		HttpSession session = httpReq.getSession(false);
 		
-		if (session != null && session.getAttribute("username")!= null) {
+		if (session.getAttribute("role").equals("admin")) {
 			chain.doFilter(request,response); 
 		} else {
 			RequestDispatcher dispatcher = 
-					httpReq.getServletContext().getRequestDispatcher("/WEB-INF/views/login.jsp");
+					httpReq.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDenied.jsp");
 	        dispatcher.forward(request, response);
 		}
 	}

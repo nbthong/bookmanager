@@ -5,11 +5,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.thongnguyen.bookmanager.bo.Book;
 import com.thongnguyen.bookmanager.bo.User;
 import com.thongnguyen.bookmanager.dbconnection.ConnectionFactory;
 
 public class UserDAO {
+	public void insertUser(String username, String password) {
+		Connection connection = null;
+		Statement statement = null;
+		try {	
+			connection = ConnectionFactory.getConnection();
+			String sql = "INSERT INTO users (username,password,role)"
+					+" VALUES ('"
+					+ username +"', '"
+					+ password + "', 'user')";
+			System.out.println(sql);
+			statement = connection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public boolean isUsernameExists(String username) {
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = ConnectionFactory.getConnection();
+			String sql = "SELECT * FROM users WHERE username = '"
+					+ username + "'";
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery(sql);
+			while (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			//Handle errors for JDBC
+			e.printStackTrace();
+		} 
+		return false;
+	}
 	
 	public User findByUsernameAndPassword(String username, String password) {
 		Connection connection = null;
