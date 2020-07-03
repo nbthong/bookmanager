@@ -32,9 +32,6 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String name = (String) request.getParameter("name");
-
-		System.out.println("SEARCH SERVLET CALLED");
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/search.jsp");       
 	    dispatcher.forward(request, response);
 	}
@@ -46,7 +43,6 @@ public class Search extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		String textSearch = (String) request.getParameter("textSearch");
-		System.out.println(textSearch);
 		
 		// MODEL
 		BookDAO bookDAO = new BookDAO();

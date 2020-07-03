@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.thongnguyen.bookmanager.bo.Book;
 import com.thongnguyen.bookmanager.dao.BookDAO;
+import com.thongnguyen.bookmanager.utils.FileUpdateUtil;
 
 /**
  * Servlet implementation class UpdateBook
  */
 @WebServlet("/updateBook")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 10,
+        maxFileSize = 1024 * 1024 * 50,
+        maxRequestSize = 1024 * 1024 * 100)
 public class UpdateBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -63,8 +69,10 @@ public class UpdateBook extends HttpServlet {
 		
 		int quantity = Integer.parseInt(quantityStr);
 		
+		String imagePath = FileUpdateUtil.saveImage(request);
+		
 		BookDAO bookDAO = new BookDAO();
-		bookDAO.updateBook(id, name, author, publisher, type, language, description, quantity);
+		bookDAO.updateBook(id, name, author, publisher, type, language, description, quantity, imagePath);
 		
 		response.sendRedirect(request.getContextPath() + "/administration");
 	}

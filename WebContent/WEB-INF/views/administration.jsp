@@ -19,8 +19,9 @@
 			<th>Publisher</th>
 			<th>Type</th>
 			<th>Language</th>
-			<!-- <th>Description</th> -->
+			<th width="400">Description</th>
 			<th>Quantity</th>
+			<th>Image</th>
 			<th>Action</th>
 		</tr>
 		<c:forEach items="${books}" var="book">
@@ -31,8 +32,11 @@
 				<td>${book.publisher}</td>
 				<td>${book.type}</td>
 				<td>${book.language}</td>
-				<%-- <td>${book.description}</td> --%>
+				<td>${book.description}</td>
 				<td>${book.quantity}</td>
+				
+				<td><img src="${book.image}" width="120" height="150"></td>
+				
 				<td>
 					<a href="updateBook?id=${book.id}">Update</a>
 					<a href="deleteBook?id=${book.id}">Delete</a>

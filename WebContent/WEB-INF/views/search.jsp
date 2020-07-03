@@ -18,31 +18,31 @@
 	
 	<input type="submit" value="Search">
 </form>
-
-<table border="1">
+<c:if test="${not empty books}">
+	<table border="1">
 		<tr>
-			<th>ID</th>
 			<th>Name</th>
 			<th>Author</th>
 			<th>Publisher</th>
 			<th>Type</th>
 			<th>Language</th>
-			<th>Description</th>
+			<th width="400">Description</th>
+			<th>Image</th>
 			<th>Quantity</th>
 		</tr>
 		<c:forEach items="${books}" var="book">
 			<tr>
-				<td>${book.id}</td>
 				<td>${book.name}</td>
 				<td>${book.author}</td>
 				<td>${book.publisher}</td>
 				<td>${book.type}</td>
 				<td>${book.language}</td>
 				<td>${book.description}</td>
+				<td><img src="${book.image}" width="120" height="150"></td>
 				<td>${book.quantity}</td>
 			</tr>
 		</c:forEach>
 	</table>
-
+</c:if>
 </body>
 </html>

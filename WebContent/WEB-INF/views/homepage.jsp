@@ -12,5 +12,6 @@
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<h1>Welcome to my home page</h1>
+	<img src="resource/images/booklogo.jpg" width="600" height="600">
 </body>
 </html>

@@ -10,8 +10,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 <h1>UPDATE BOOK</h1>
 
-<form action="${pageContext.request.contextPath}/updateBook" method="post" >
-
+<form action="${pageContext.request.contextPath}/updateBook" method="post" enctype="multipart/form-data">
 	<input type="number" name="id" value="${book.id}"> <br>
 	<input type="text" name="name" value="${book.name}"  placeholder="Book Name"> <br>
 	<input type="text" name="author" value="${book.author}" placeholder="Author"> <br>
@@ -20,7 +19,8 @@
 	<input type="text" name="language" value="${book.language}" placeholder="Language"> <br>
 	<input type="text" name="description" value="${book.description}" placeholder="Description"> <br>
 	<input type="number" name="quantity" value="${book.quantity}" placeholder="Quantity"> <br>
-
+	<img src="${book.image}" width="160" height="200"><br>
+	<input type="file" name="image" placeholder="Update new image"><br>
 	<input type="submit" value="Save">
 </form>
 </body>
