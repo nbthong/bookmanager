@@ -1,6 +1,7 @@
 package com.thongnguyen.bookmanager.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,16 +12,15 @@ import com.thongnguyen.bookmanager.dbconnection.ConnectionFactory;
 public class UserDAO {
 	public void insertUser(String username, String password) {
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement preparedStatement = null;
 		try {	
 			connection = ConnectionFactory.getConnection();
-			String sql = "INSERT INTO users (username,password,role)"
-					+" VALUES ('"
-					+ username +"', '"
-					+ password + "', 'user')";
-			System.out.println(sql);
-			statement = connection.createStatement();
-			statement.executeUpdate(sql);
+			String sql = "INSERT INTO users (username,password,role) VALUES (?,?,?)";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1,username);
+			preparedStatement.setString(2,password);
+			preparedStatement.setString(3,"user");
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
@@ -48,15 +48,15 @@ public class UserDAO {
 	
 	public User findByUsernameAndPassword(String username, String password) {
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		try {
 			connection = ConnectionFactory.getConnection();
-			String sql = "SELECT * FROM users WHERE username = '"
-					+ username + "' and password = '"
-					+ password + "'";
-			statement = connection.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
+			String sql = "SELECT * FROM users WHERE username = ? and password = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				User user = convertToUser(resultSet);
 				return user;
